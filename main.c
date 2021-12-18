@@ -35,6 +35,7 @@ int main(int argc, char *argv[argc])
         if (fscanf(input, "%c", &c) != 1) {
             return 1;
         }
+        array[i] = number;
     }
     qsort(array, size, sizeof(int), compare);
     int res1 = sum_distances(array[size / 2], array, size, module);
