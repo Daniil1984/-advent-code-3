@@ -20,16 +20,21 @@ int main(int argc, char *argv[argc])
     int size = 0;
     while (fscanf(input, "%d", &number) == 1) {
         char c;
-        fscanf(input, "%c", &c);
+        if (fscanf(input, "%c", &c) != 1) {
+            return 1;
+        }
         size++;
     }
     rewind(input);
     int *array = malloc(size * sizeof(int));
     for (int i = 0; i < size; i++) {
-        fscanf(input, "%d", &number);
+        if (fscanf(input, "%d", &number) != 1) {
+            return 2;
+        }
         char c;
-        fscanf(input, "%c", &c);
-        array[i] = number;
+        if (fscanf(input, "%c", &c) != 1) {
+            return 1;
+        }
     }
     qsort(array, size, sizeof(int), compare);
     int res1 = sum_distances(array[size / 2], array, size, module);
