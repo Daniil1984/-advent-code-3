@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 int compare(const void *x, const void *y);
-int sum_distances(int point, int *array, int size, int (*distance)(const int, const int));
+int sum_distances(int point, int *array, int size,
+                  int (*distance)(const int, const int));
 int min(int a, int b);
 int module(int a, int b);
 int arithmetic_dist(int a, int b);
 
 int main(int argc, char *argv[argc])
-{   
+{
     if (argc != 2) {
         return -1;
     }
@@ -36,7 +37,6 @@ int main(int argc, char *argv[argc])
     int res3 = sum_distances(array[size / 2] + 1, array, size, module);
     printf("%d\n", min(res1, min(res2, res3)));
     int min_dist = sum_distances(array[size / 2], array, size, arithmetic_dist);
-    // слева от середины искать нет смысла
     for (int i = array[size / 2] + 1; i < array[size - 1]; i++) {
         int res = sum_distances(i, array, size, arithmetic_dist);
         if (res <= min_dist) {
@@ -56,7 +56,8 @@ int compare(const void *x, const void *y)
     return *(int *)x - *(int *)y;
 }
 
-int sum_distances(int point, int *array, int size, int (*distance)(const int, const int))
+int sum_distances(int point, int *array, int size,
+                  int (*distance)(const int, const int))
 {
     int sum = 0;
     for (int i = 0; i < size; i++) {
