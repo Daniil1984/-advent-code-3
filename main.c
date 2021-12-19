@@ -18,24 +18,28 @@ int main(int argc, char *argv[argc])
     }
     int number;
     int size = 0;
-    while (fscanf(input, "%d", &number) == 1) {
-        char c;
-        if (fscanf(input, "%c", &c) != 1) {
-            return 1;
-        }
+    int res;
+    char c;
+    while ((res = fscanf(input, "%d", &number)) == 1 &&
+           fscanf(input, "%c", &c) == 1) {
+        size++;
+    }
+    if (res == 1) {
         size++;
     }
     rewind(input);
     int *array = malloc(size * sizeof(int));
     for (int i = 0; i < size; i++) {
-        if (fscanf(input, "%d", &number) != 1) {
+        if ((res = fscanf(input, "%d", &number)) != 1) {
             return 2;
         }
-        char c;
-        if (fscanf(input, "%c", &c) != 1) {
-            return 1;
-        }
         array[i] = number;
+        if (i == size - 1) {
+            break;
+        }
+        if (fscanf(input, "%c", &c) != 1) {
+            return 2;
+        }
     }
     qsort(array, size, sizeof(int), compare);
     int res1 = sum_distances(array[size / 2], array, size, module);
